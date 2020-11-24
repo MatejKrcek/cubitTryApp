@@ -37,7 +37,7 @@ class CounterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Counter',
         ),
       ),
@@ -51,19 +51,25 @@ class CounterPage extends StatelessWidget {
             onPressed: () {
               context.read<CounterCubit>().increment();
             },
-            child: Icon(Icons.add),
+            child: const Icon(
+              Icons.add,
+            ),
           ),
           FloatingActionButton(
             onPressed: () {
               context.read<CounterCubit>().decrepemt();
             },
-            child: Icon(Icons.remove),
+            child: const Icon(
+              Icons.remove,
+            ),
           ),
           FloatingActionButton(
             onPressed: () {
               context.read<ThemeCubit>().swapMode();
             },
-            child: Icon(Icons.color_lens),
+            child: const Icon(
+              Icons.color_lens,
+            ),
           ),
         ],
       ),
@@ -76,6 +82,9 @@ class CounterText extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final count = context.watch<CounterCubit>().state;
-    return Text('$count', style: theme.textTheme.headline1);
+    return Text(
+      '$count',
+      style: theme.textTheme.headline1,
+    );
   }
 }
