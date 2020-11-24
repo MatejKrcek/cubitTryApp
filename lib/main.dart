@@ -8,21 +8,25 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      themeMode: ThemeMode.dark,
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-      ),
-      home: MultiBlocProvider(
-        child: CounterPage(),
-        providers: [
-          BlocProvider<CounterCubit>(
-            create: (_) => CounterCubit(),
-          ),
-          BlocProvider<ThemeCubit>(
-            create: (_) => ThemeCubit(),
-          ),
-        ],
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<CounterCubit>(
+          create: (_) => CounterCubit(),
+        ),
+        BlocProvider<ThemeCubit>(
+          create: (_) => ThemeCubit(),
+        ),
+      ],
+      child: BlocBuilder<ThemeCubit, ThemeMode>(
+        builder: (context, state) {
+          return MaterialApp(
+            themeMode: state,
+            darkTheme: ThemeData(
+              brightness: Brightness.dark,
+            ),
+            home: CounterPage(),
+          );
+        },
       ),
     );
   }
@@ -31,14 +35,10 @@ class MyApp extends StatelessWidget {
 class CounterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final color = context.watch<ThemeCubit>().state;
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'Counter',
-          style: TextStyle(
-            color: color,
-          ),
         ),
       ),
       body: Center(

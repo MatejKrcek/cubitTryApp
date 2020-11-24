@@ -8,13 +8,10 @@ class CounterCubit extends Cubit<int> {
   void decrepemt() => emit(state - 1);
 }
 
-class ThemeCubit extends Cubit<Color> {
-  ThemeCubit() : super(Colors.green);
+class ThemeCubit extends Cubit<ThemeMode> {
+  ThemeCubit() : super(ThemeMode.light);
 
   void swapMode() {
-    emit(state == Colors.green ? Colors.red : Colors.green);
-    print(state);
+    emit(state == ThemeMode.light ? ThemeMode.dark : ThemeMode.light);
   }
-
-
 }
